@@ -1,0 +1,30 @@
+<div class="container" *ngIf="article">
+    <h2>Edit "{{article.fixedTitle}}"</h2>
+    <form #articleForm="ngForm">
+      
+      <div [ngClass]="{'has-error': title.invalid && title.touched}" class="form-group">
+        <label class="control-label" for="title" >Title (*)</label>
+        <input  #title="ngModel" id="title" type="text" name="title" class="form-control" 
+        [(ngModel)]="article.title" required>
+        <!--<div *ngIf="title.invalid && title.touched">-->
+        <div [hidden]="title.valid || title.untouched" class="text-danger">
+          Title is required
+        </div>
+      </div>
+      
+      <div class="form-group" [ngClass]="{'has-error': body.invalid && body.touched}">
+        <label for="body" class="control-label">Body (*)</label>
+        <input #body="ngModel" type="text" name="body" class="form-control"
+        [(ngModel)]="article.body" required>
+        <div [hidden]="body.valid || body.untouched" class="text-danger">
+          Overview is required
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-success" 
+              [disabled]="articleForm.form.invalid" (click)="edited(article)" >
+        Save
+      </button>
+
+      <button type="cancel" class="btn btn-cancel" [routerLink]= "'/stories'">Cancel</button>
+        
